@@ -1,37 +1,50 @@
-const svgFile = require("./generateSvg");
 const fileSystem = require("fs");
+const shapeFile = require("./lib/shapes");
 const inquirer = require("inquirer");
-const path = require("path");
-const validateInput = (answer)=>{
-    if(answer !== ""){
-        return true
-    } else{
-        return "answer is required"
-    }
-};
 
+function writeToFile(logoText, fontColor, logoShape, logoColor, shapeFile) {
+    const shapes = shapeFile[shapeClass];
+    return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/20"> ${shapeClass.svg(logoColor)}
+    <text x="150" y="125" font-size="61" fill="${fontColor}" dy="-0.25rem" text-anchor="middle">${logoText} </text>
+    </svg>`;
+}
+inquirer
 //This array contains the quetions that require the user to input an answer
-const questions = [
+.prompt([
     {
         type: "input",
+        name: 'logoText',
         message: "Provide the logo text in 3 characters or less",
     },
     {
         type: "input",
+        name: 'fontColor',
         message: "Please indicate the desired text color by typing the hex code or color name.",
     },
     {
         type: "list",
+        name: 'logoShape',
         message: "Pleae chose a shape for your logo.",
         choices: ["circle", "square", "triangle"],
     },
     {
         type: "input",
+        name: 'logoColor',
         message: "Please indicate the desired shape color by typing the hex code or color name.",
-    }
-];
+    },
+])
 
-// This function writes a README file
+.then(({logoText, fontColor, logoShape, logoColor}) => {
+    const includedInSvg = writeToFile(logoText, fontColor, logoShape, logoColor, shapesFile);
+    fileSystem.appendFile('./examples/' + `${logoShape}-${logoText}.svg`, includedInSvg, (err) => {
+        if (err) {
+            return console.log(err);
+        } else{
+            console.log("Your logo has been successfully generated!");
+        }
+        });
+});
+// This function writes a SVG file
 function writeToFile(fileName, data) {
     fileSystem.writeFile(fileName, svgFile(data), function (error) {
         if (error) {
