@@ -5,11 +5,10 @@ const inquirer = require("inquirer");
 function writeToFile(logoText, fontColor, logoShape, logoColor, shapeFile) {
     const shapes = shapeFile[logoShape];
     return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"> ${shapes.svg(logoColor)}
-    <text x="150" y="125" font-size="61" fill="${fontColor}" dy="-0.25rem" text-anchor="middle">${logoText} </text>
+    <text x="151" y="126" font-size="63" fill="${fontColor}" dy="-0.27rem" text-anchor="middle">${logoText} </text>
     </svg>`;
 }
 inquirer
-//This array contains the quetions that require the user to input an answer
 .prompt([
     {
         type: "input",
@@ -43,22 +42,4 @@ inquirer
         }
         });
 });
-// // This function writes a SVG file
-// function writeToFile(fileName, data) {
-//     fileSystem.writeFile(fileName, svgFile(data), function (error) {
-//         if (error) {
-//             return console.log(error);
-//         }
-//     });
-// };
 
-//This function initializes the app
-// function init() {
-//     inquirer.prompt(questions).then((data => {
-//         console.log(data);
-//         writeToFile(path.join(__dirname,"/examples/","logo.SVG"), data);
-//     }));
-// };
-
-// // Function call to initialize app
-// init();
